@@ -1,7 +1,6 @@
 const User = require('../models/User')
 const { StatusCodes } = require('http-status-codes')
-const { BadRequestError, UnauthenticatedError } = require('../errors')
-const NotFoundError = require('../errors')
+const { BadRequestError, NotFoundError } = require('../errors')
 
 const updateName = async (req, res) => {
     const {
