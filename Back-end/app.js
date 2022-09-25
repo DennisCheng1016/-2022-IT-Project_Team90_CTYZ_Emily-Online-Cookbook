@@ -8,6 +8,7 @@ const authenticateUser = require('./middleware/authentication')
 // Routers
 const authRouter = require('./routes/authRoute')
 const profileRouter = require('./routes/profileRoute')
+const categoryRouter = require('./routes/categoryRoute')
 
 // Error handler
 const notFoundMiddleware = require('./middleware/not-found')
@@ -17,7 +18,8 @@ app.use(express.json())
 
 // Routes
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/profile', authenticateUser , profileRouter)
+app.use('/api/v1/profile', authenticateUser, profileRouter)
+app.use('/api/v1/category', authenticateUser, categoryRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
