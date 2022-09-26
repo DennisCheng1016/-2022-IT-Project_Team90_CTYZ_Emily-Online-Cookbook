@@ -9,7 +9,11 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET,
 })
 const connectDB = require('./db/connect')
-const authenticateUser = require('./middleware/authentication')
+const authenticateUser = require('./middleware/authentication')o
+
+// Security
+
+const cors = require('cors')
 
 // Routers
 const authRouter = require('./routes/authRoute')
@@ -28,6 +32,8 @@ const app = express();
 
 app.use(express.json())
 app.use(fileUpload({useTempFiles: true}))
+
+app.use(cors())
 
 // Routes
 app.use('/api/v1/auth', authRouter);
