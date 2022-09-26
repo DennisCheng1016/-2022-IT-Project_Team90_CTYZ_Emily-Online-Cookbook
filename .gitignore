@@ -14,6 +14,7 @@ Front-end/node_modules
 
 # misc
 Back-end/.env
+Back-end/tmp/
 .history/
 .DS_Store
 .env.local
