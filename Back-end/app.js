@@ -9,7 +9,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET,
 })
 const connectDB = require('./db/connect')
-const authenticateUser = require('./middleware/authentication')o
+const authenticateUser = require('./middleware/authentication')
 
 // Security
 
