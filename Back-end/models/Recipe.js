@@ -7,18 +7,28 @@ const RecipeSchema = new mongoose.Schema(
             required: [true, 'Please provide title'],
             maxlength: 50,
             unique: true, 
+            trim: true, 
         },
         ingredients: [{
             type: String, 
+            trim: true, 
         }], 
         methods: [{
             type: String, 
+            trim: true, 
         }], 
         picture: {
             type: String, 
         }, 
         imageId: {
             type: String, 
+        }, 
+        completed: {
+            type: Date, 
+        }, 
+        favorite: {
+            type: Boolean, 
+            default: false, 
         }, 
         tags: [{
             type: mongoose.Schema.Types.ObjectId,

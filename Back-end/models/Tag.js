@@ -7,6 +7,7 @@ const TagSchema = new mongoose.Schema(
             required: [true, 'Please provide name'],
             maxlength: 50,
             unique: true, 
+            trim: true, 
         },
         recipes: [{
             type: mongoose.Schema.Types.ObjectId,
