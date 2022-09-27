@@ -1,23 +1,21 @@
 # dependencies
-Back-end/node_modules/
+node_modules/
 .prettierrc
 
 # temporary files
+tmp/
 
 # testing
 
 # production
 
 # misc
-Back-end/tmp/
 .DS_Store
-Back-end/.env
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
-npm-debug.log*
 
 # IntelliJ project files
 
