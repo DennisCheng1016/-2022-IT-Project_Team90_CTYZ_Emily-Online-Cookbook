@@ -46,6 +46,9 @@ app.use(xss());
 
 app.use(fileUpload({ useTempFiles: true }));
 
+app.get('/', (req, res) => {
+	res.send('Online Cookbook API');
+});
 // Routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/profile', authenticateUser, profileRouter);
