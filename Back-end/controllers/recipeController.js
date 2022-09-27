@@ -5,7 +5,7 @@ const Category = require('../models/Category')
 const Tag = require('../models/Tag')
 
 const getRecipes = async (req, res) => {
-    const {title, category, sort} = req.query
+    const {title, category, sort, history, favorite} = req.query
     const queryObject = {}
     queryObject.createBy = req.user.userId
     if(title){
@@ -14,7 +14,17 @@ const getRecipes = async (req, res) => {
     if(category){
         queryObject.category = category
     }
-    let result = Recipe.find(queryObject)
+
+    let result
+    if(history){
+        queryObject.completed = {$ne: null}
+        result = Recipe.find(queryObject)
+    } else if (favorite){
+        queryObject.favorite = true
+        result = Recipe.find(queryObject)
+    } else {
+        result = Recipe.find(queryObject)
+    }
     if(sort){
         result = result.sort(sort)
     } else {
@@ -27,7 +37,7 @@ const getRecipes = async (req, res) => {
 
     const recipes = await result
 
-    res.status(200).json({ recipes })
+    res.status(StatusCodes.OK).json({ recipes, number: recipes.length })
 }
 
 const createRecipe = async (req, res) => {
@@ -174,10 +184,25 @@ const completeRecipe = async (req, res) => {
     if(!recipe) throw new NotFoundError(`No recipe with id ${recipeId}`)
     res.status(StatusCodes.OK).json({recipe})
 }
+const favoriteRecipe = async (req, res) => {
+    const {
+        user: { userId },
+        params: { id: recipeId },
+    } = req
+    const recipe = await Recipe.findOne(
+        {_id: recipeId, createBy: userId}, 
+    )
+    if(!recipe) throw new NotFoundError(`No recipe with id ${recipeId}`)
+    recipe.favorite = !recipe.favorite
+    await recipe.save()
+    
+    res.status(StatusCodes.OK).json({recipe})
+}
 module.exports = {
     getRecipes, 
     createRecipe, 
     updateRecipe, 
     deleteRecipe, 
-    completeRecipe
+    completeRecipe, 
+    favoriteRecipe, 
 }
