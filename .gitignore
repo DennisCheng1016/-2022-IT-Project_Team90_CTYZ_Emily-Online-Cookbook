@@ -1,22 +1,17 @@
 # dependencies
-Back-end/node_modules
-Front-end/node_modules
-/.pnp
-.pnp.js
+node_modules
 
 # temporary files
+tmp/
 
 # testing
-/coverage
 
 # production
-/build
 
 # misc
-Back-end/.env
-Back-end/tmp/
 .history/
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -27,9 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # IntelliJ project files
-.idea
-*.iml
-out
-gen
 
 # Others
