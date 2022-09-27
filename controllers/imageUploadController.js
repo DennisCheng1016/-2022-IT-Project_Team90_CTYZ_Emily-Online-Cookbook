@@ -13,14 +13,12 @@ const uploadImage = async (req, res) => {
 		}
 	);
 	fs.unlinkSync(req.files.image.tempFilePath);
-	return res
-		.status(StatusCodes.OK)
-		.json({
-			image: {
-				src: result.secure_url,
-				imageId: result.public_id.split('/')[1],
-			},
-		});
+	return res.status(StatusCodes.OK).json({
+		image: {
+			src: result.secure_url,
+			imageId: result.public_id.split('/')[1],
+		},
+	});
 };
 
 const deleteImage = async (req, res) => {
