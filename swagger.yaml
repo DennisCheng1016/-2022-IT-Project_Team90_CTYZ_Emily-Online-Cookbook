@@ -1,0 +1,746 @@
+openapi: 3.0.0
+info:
+  title: IT Project  Online Cookbook API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://itproject-online-cookbook.herokuapp.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: 'Password must be at least 6 characters'
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterRequest'
+              - example:
+                  name: test
+                  password: '123456'
+                  email: test@gmail.com
+            example:
+              name: test
+              password: '123456'
+              email: test@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginRequest'
+              - example:
+                  email: test@gmail.com
+                  password: '123456'
+            example:
+              email: test@gmail.com
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /profile/{id}:
+    patch:
+      tags:
+      - Profile
+      summary: Update user name
+      operationId: Updateusername
+      parameters: 
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The user ID
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateusernameRequest'
+              - example:
+                  name: XXX
+            example:
+              name: XXX
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /category:
+    get:
+      tags:
+      - Category
+      summary: Get categories
+      operationId: Getcategories
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Category
+      summary: Create category
+      operationId: Createcategory
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreatecategoryRequest'
+              - example:
+                  name: breakfast
+            example:
+              name: breakfast
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /category/{id}:
+    patch:
+      tags:
+      - Category
+      summary: Update category name
+      operationId: Updatecategoryname
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'The category ID'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatecategorynameRequest'
+              - example:
+                  name: brunch
+            example:
+              name: brunch
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Category
+      summary: Delete category
+      operationId: Deletecategory
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The category ID
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /recipe:
+    get:
+      tags:
+      - Recipe
+      summary: Get recipes
+      operationId: Getrecipes
+      parameters:
+      - name: category
+        in: query
+        description: 'If set the category ID then return recipes in this category'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 
+      - name: title
+        in: query
+        description: 'Can search recipes by title'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: rice
+      - name: sort
+        in: query
+        description: 'Can sort recipes by title (only works for title for now)'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: title
+      - name: page
+        in: query
+        description: 'Can set page'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 1
+      - name: limit
+        in: query
+        description: 'Can set page size'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 10
+      - name: history
+        in: query
+        description: 'Can find historic recipes that have been completed. Do not apply with favorite. For now, it can work with any character'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example:
+      - name: favorite
+        in: query
+        description: 'Can find favorite recipes that have been marked. Do not apply with history. For now, it can work with any character'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example:
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Recipe
+      summary: Create recipe
+      operationId: Createrecipe
+      parameters: []
+      requestBody:
+        description: 'Must provide title and category ID. picture and imageId are returned by Upload image'
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreaterecipeRequest'
+              - example:
+                  title: rice
+                  ingredients:
+                  - egg
+                  - rice
+                  methods:
+                  - '1'
+                  - '2'
+                  - '3'
+                  category: category ID
+                  tags:
+                  - xxx
+                  - yyy
+                  - zzz
+                  picture: asf
+                  imageId: asf
+            example:
+              title: rice
+              ingredients:
+              - egg
+              - rice
+              methods:
+              - '1'
+              - '2'
+              - '3'
+              category: category ID
+              tags:
+              - xxx
+              - yyy
+              - zzz
+              picture: picture URL
+              imageId: Image ID
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /recipe/{id}:
+    patch:
+      tags:
+      - Recipe
+      summary: Update recipe
+      operationId: Updaterecipe
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The recipe ID
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdaterecipeRequest'
+              - example:
+                  title: rice
+                  ingredients:
+                  - egg
+                  - rice
+                  methods:
+                  - '1'
+                  - '2'
+                  - '3'
+                  category: category ID
+                  tags:
+                  - xxx
+                  - yyy
+                  - zzz
+                  picture: asf
+                  imageId: asf
+            example:
+              title: rice
+              ingredients:
+              - egg
+              - rice
+              methods:
+              - '1'
+              - '2'
+              - '3'
+              category: category ID
+              tags:
+              - xxx
+              - yyy
+              - zzz
+              picture: picture URL
+              imageId: Image ID
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Recipe
+      summary: Delete recipe
+      operationId: Deleterecipe
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'The recipe ID'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /recipe/image:
+    post:
+      tags:
+      - Recipe
+      summary: Upload image
+      operationId: Uploadimage
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /recipe/image/{id}:
+    delete:
+      tags:
+      - Recipe
+      summary: Delete image
+      operationId: Deleteimage
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The imageId
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /recipe/complete/{id}:
+    patch:
+      tags:
+      - History
+      summary: Complete recipe
+      operationId: Completerecipe
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The recipe Id
+      responses:
+        '200':
+          description: 'Mark the recipe as completed'
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /recipe/favorite/{id}:
+    patch:
+      tags:
+      - Favorite
+      summary: Favorite recipe
+      operationId: Favoriterecipe
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The recipe Id
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /tag:
+    get:
+      tags:
+      - Tag
+      summary: Get all tags
+      operationId: Getalltags
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /tag/{id}:
+    get:
+      tags:
+      - Tag
+      summary: Get tag recipes
+      operationId: Gettagrecipes
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The tag Id
+      - name: page
+        in: query
+        description: 'Can set page'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 1
+      - name: limit
+        in: query
+        description: 'Can set page size'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 10
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+      - name
+      - password
+      - email
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        name: Dennis
+        password: ''
+        email: abc@gmail.com
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: abc@gmail.com
+        password: '123456'
+    UpdateusernameRequest:
+      title: UpdateusernameRequest
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: XXX
+    CreatecategoryRequest:
+      title: CreatecategoryRequest
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: breakfast
+    UpdatecategorynameRequest:
+      title: UpdatecategorynameRequest
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: brunch
+    CreaterecipeRequest:
+      title: CreaterecipeRequest
+      required:
+      - title
+      - ingredients
+      - method
+      - category
+      - tags
+      type: object
+      properties:
+        title:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+          description: ''
+        method:
+          type: array
+          items:
+            type: string
+          description: ''
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        title: rice ee
+        ingredients:
+        - egg
+        - rice
+        method:
+        - '1'
+        - '2'
+        - '3'
+        category: 63302ddf7b1ea4c130f10c21
+        tags:
+        - xxx
+        - yyy
+        - zzzz
+    UpdaterecipeRequest:
+      title: UpdaterecipeRequest
+      required:
+      - title
+      - ingredients
+      - methods
+      - category
+      - tags
+      type: object
+      properties:
+        title:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+          description: ''
+        methods:
+          type: array
+          items:
+            type: string
+          description: ''
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        title: egg rice
+        ingredients:
+        - egg
+        - rice
+        methods:
+        - '1'
+        - '2'
+        - '3'
+        category: 63302ddf7b1ea4c130f10c21
+        tags:
+        - xxx
+        - '33333333'
+        - sdafa
+    FavoriterecipeRequest:
+      title: FavoriterecipeRequest
+      required:
+      - title
+      - ingredients
+      - methods
+      - category
+      - tags
+      type: object
+      properties:
+        title:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+          description: ''
+        methods:
+          type: array
+          items:
+            type: string
+          description: ''
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        title: update
+        ingredients:
+        - egg
+        - rice
+        methods:
+        - '1'
+        - '2'
+        - '3'
+        category: 63302ddf7b1ea4c130f10c21
+        tags:
+        - xxx
+        - '33333333'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Misc
+  description: ''
+- name: Auth
+  description: ''
+- name: Profile
+  description: ''
+- name: Category
+  description: ''
+- name: Recipe
+  description: ''
+- name: History
+  description: ''
+- name: Favorite
+  description: ''
+- name: Tag
+  description: ''
