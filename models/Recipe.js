@@ -6,7 +6,6 @@ const RecipeSchema = new mongoose.Schema(
 			type: String,
 			required: [true, 'Please provide title'],
 			maxlength: 50,
-			unique: true,
 			trim: true,
 		},
 		ingredients: [
