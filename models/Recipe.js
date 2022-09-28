@@ -26,6 +26,9 @@ const RecipeSchema = new mongoose.Schema(
 		imageId: {
 			type: String,
 		},
+		cookTime: {
+			type: String,
+		},
 		completed: {
 			type: Date,
 		},
