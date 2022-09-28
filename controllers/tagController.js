@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const { BadRequestError, NotFoundError } = require('../errors');
+const { NotFoundError } = require('../errors');
 const Tag = require('../models/Tag');
 
 const getAllTags = async (req, res) => {
