@@ -1,16 +1,21 @@
 require('dotenv').config();
 require('express-async-errors');
+// express
+const express = require('express');
+const app = express();
 
-const fileUpload = require('express-fileupload');
+// Database
+const connectDB = require('./db/connect');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
 	cloud_name: process.env.CLOUD_NAME,
 	api_key: process.env.CLOUD_API_KEY,
 	api_secret: process.env.CLOUD_API_SECRET,
 });
-const connectDB = require('./db/connect');
-const authenticateUser = require('./middleware/authentication');
 
+// Rest of packages
+const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
 // Security
 const helmet = require('helmet');
 const cors = require('cors');
@@ -30,11 +35,9 @@ const recipeRouter = require('./routes/recipeRoute');
 const tagRouter = require('./routes/tagRoute');
 
 // Error handler
+const authenticateUser = require('./middleware/authentication');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
-
-const express = require('express');
-const app = express();
 
 app.set('trust proxy', 1);
 app.use(
@@ -67,7 +70,6 @@ app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
-
 const start = async () => {
 	try {
 		await connectDB(process.env.MONGO_URI);
