@@ -8,6 +8,10 @@ const RecipeSchema = new mongoose.Schema(
 			maxlength: 50,
 			trim: true,
 		},
+		introduction: {
+			type: String,
+			trim: true,
+		},
 		ingredients: [
 			{
 				type: String,
