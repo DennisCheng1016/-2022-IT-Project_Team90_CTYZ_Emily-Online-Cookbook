@@ -1,10 +1,17 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
+const Category = require('../models/Category');
 
 const register = async (req, res) => {
 	const user = await User.create(req.body);
 	const token = user.createJWT();
+	await Category.create({ name: 'Breakfast', createBy: user._id });
+	await Category.create({ name: 'Lunch', createBy: user._id });
+	await Category.create({ name: 'Dinner', createBy: user._id });
+	await Category.create({ name: 'Snack', createBy: user._id });
+	await Category.create({ name: 'Brunch', createBy: user._id });
+	await Category.create({ name: 'Dessert', createBy: user._id });
 	res.status(StatusCodes.CREATED).json({
 		user: { name: user.name },
 		token,
