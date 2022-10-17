@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const uploadImage = async (req, res) => {
 	const result = await cloudinary.uploader.upload(
-		req.files.image.tempFilePath,
+		req.files.file.tempFilePath,
 		{
 			// use_filename: true,
 			folder: 'Cookbook',
