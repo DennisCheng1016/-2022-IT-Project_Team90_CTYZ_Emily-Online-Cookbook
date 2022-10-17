@@ -12,7 +12,7 @@ const uploadImage = async (req, res) => {
 			folder: 'Cookbook',
 		}
 	);
-	fs.unlinkSync(req.files.image.tempFilePath);
+	fs.unlinkSync(req.files.file.tempFilePath);
 	return res.status(StatusCodes.OK).json({
 		image: {
 			src: result.secure_url,
