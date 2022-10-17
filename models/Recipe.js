@@ -27,7 +27,10 @@ const RecipeSchema = new mongoose.Schema(
 			type: String,
 		},
 		cookTime: {
-			type: String,
+			type: Number,
+		},
+		serve: {
+			type: Number,
 		},
 		completed: {
 			type: Date,
