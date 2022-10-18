@@ -33,6 +33,7 @@ const profileRouter = require('./routes/profileRoute');
 const categoryRouter = require('./routes/categoryRoute');
 const recipeRouter = require('./routes/recipeRoute');
 const tagRouter = require('./routes/tagRoute');
+const cartRouter = require('./routes/cartRoute');
 
 // Error handler
 const authenticateUser = require('./middleware/authentication');
@@ -65,6 +66,7 @@ app.use('/api/v1/profile', authenticateUser, profileRouter);
 app.use('/api/v1/category', authenticateUser, categoryRouter);
 app.use('/api/v1/recipe', authenticateUser, recipeRouter);
 app.use('/api/v1/tag', authenticateUser, tagRouter);
+app.use('/api/v1/cart', authenticateUser, cartRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
