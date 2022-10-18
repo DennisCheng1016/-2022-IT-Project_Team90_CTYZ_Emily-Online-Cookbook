@@ -19,6 +19,9 @@ const CategorySchema = new mongoose.Schema(
 			ref: 'User',
 			required: [true, 'Please provide user'],
 		},
+		picture: {
+			type: String,
+		},
 	},
 	{ timestamps: true }
 );
