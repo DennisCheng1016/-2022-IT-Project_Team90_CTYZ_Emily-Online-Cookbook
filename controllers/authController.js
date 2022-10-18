@@ -10,13 +10,13 @@ const register = async (req, res) => {
 		name: 'Breakfast',
 		createBy: user._id,
 		picture:
-			'https://www.google.com/url?sa=i&url=https%3A%2F%2Fsimply-delicious-food.com%2Feasy-breakfast-board%2F&psig=AOvVaw2ggYpEh3Z0G4ayy6JU41L8&ust=1666186625216000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOi_oIHz6foCFQAAAAAdAAAAABAE',
+			'https://simply-delicious-food.com/wp-content/uploads/2018/10/breakfast-board-2.jpg',
 	});
 	await Category.create({
 		name: 'Lunch',
 		createBy: user._id,
 		picture:
-			'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.taste.com.au%2Farticles%2Fadd-gourmet-touch-work-lunch%2Fwnanwsvr&psig=AOvVaw0R9yM01DRW_Ne6zyn5bitn&ust=1666186662886000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCJDAq5Pz6foCFQAAAAAdAAAAABAE',
+			'https://img.taste.com.au/sv9d9AM6/w720-h480-cfill-q80/taste/2016/11/pork-and-bean-burrito-bowl-109208-1.jpeg',
 	});
 	await Category.create({
 		name: 'Dinner',
