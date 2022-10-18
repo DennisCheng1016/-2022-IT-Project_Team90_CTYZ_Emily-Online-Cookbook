@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
 const Category = require('../models/Category');
 const Tag = require('../models/Tag');
+const cloudinary = require('cloudinary').v2;
 
 const getRecipes = async (req, res) => {
 	const { title, category, sort, history, favorite } = req.query;
@@ -163,6 +164,11 @@ const deleteRecipe = async (req, res) => {
 	}).populate('tags', '-_id name');
 	if (!recipe) {
 		throw new NotFoundError(`No recipe with id ${recipeId}`);
+	}
+	if (recipe.imageId) {
+		const result = await cloudinary.uploader.destroy(
+			'Cookbook/' + req.imageId
+		);
 	}
 	const tags = recipe.tags;
 	if (tags) {
