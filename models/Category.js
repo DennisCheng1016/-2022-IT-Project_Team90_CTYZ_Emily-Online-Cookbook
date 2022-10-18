@@ -6,7 +6,6 @@ const CategorySchema = new mongoose.Schema(
 			type: String,
 			required: [true, 'Please provide name'],
 			maxlength: 50,
-			unique: true,
 			trim: true,
 		},
 		recipes: [
