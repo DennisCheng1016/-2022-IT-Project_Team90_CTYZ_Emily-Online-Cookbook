@@ -10,7 +10,7 @@ const register = async (req, res) => {
 		name: 'Breakfast',
 		createBy: user._id,
 		picture:
-			'https://simply-delicious-food.com/wp-content/uploads/2018/10/breakfast-board-2.jpg',
+			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baked-eggs-and-zoodles-bundles1-1661458984.jpeg?crop=0.857xw:1.00xh;0.0722xw,0&resize=640:*',
 	});
 	await Category.create({
 		name: 'Lunch',
