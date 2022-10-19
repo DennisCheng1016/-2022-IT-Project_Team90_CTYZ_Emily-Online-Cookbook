@@ -48,7 +48,10 @@ const createRecipe = async (req, res) => {
 	const recipe = await Recipe.create(req.body);
 	if (tags) {
 		for (const tag of tags) {
-			let findTag = await Tag.findOne({ name: tag });
+			let findTag = await Tag.findOne({
+				name: tag,
+				createBy: req.user.userId,
+			});
 			if (!findTag) {
 				findTag = await Tag.create({
 					name: tag,
@@ -91,7 +94,10 @@ const updateRecipe = async (req, res) => {
 		const deleteTags = previousTags.filter(x => !tags.includes(x));
 		if (addTags) {
 			for (const tag of addTags) {
-				let findTag = await Tag.findOne({ name: tag });
+				let findTag = await Tag.findOne({
+					name: tag,
+					createBy: req.user.userId,
+				});
 				if (!findTag) {
 					findTag = await Tag.create({
 						name: tag,
@@ -110,7 +116,7 @@ const updateRecipe = async (req, res) => {
 		if (deleteTags) {
 			for (const tag of deleteTags) {
 				const deleteTag = await Tag.findOneAndUpdate(
-					{ name: tag },
+					{ name: tag, createBy: req.user.userId },
 					{ $pull: { recipes: recipe._id } },
 					{ new: true, runValidators: true }
 				);
@@ -122,7 +128,7 @@ const updateRecipe = async (req, res) => {
 	} else if (!tags && previousTags) {
 		for (const tag of previousTags) {
 			const deleteTag = await Tag.findOneAndUpdate(
-				{ name: tag },
+				{ name: tag, createBy: req.user.userId },
 				{ $pull: { recipes: recipe._id } },
 				{ new: true, runValidators: true }
 			);
@@ -132,7 +138,10 @@ const updateRecipe = async (req, res) => {
 		const result = await Tag.deleteMany({ recipes: { $size: 0 } });
 	} else if (tags && !previousTags) {
 		for (const tag of tags) {
-			let findTag = await Tag.findOne({ name: tag });
+			let findTag = await Tag.findOne({
+				name: tag,
+				createBy: req.user.userId,
+			});
 			if (!findTag) {
 				findTag = await Tag.create({
 					name: tag,
