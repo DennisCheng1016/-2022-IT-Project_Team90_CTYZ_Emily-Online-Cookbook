@@ -185,7 +185,7 @@ const deleteRecipe = async (req, res) => {
 		const deleteTags = tags.map(x => x.name);
 		for (const tag of deleteTags) {
 			const deleteTag = await Tag.findOneAndUpdate(
-				{ name: tag },
+				{ name: tag, createBy: req.user.userId },
 				{ $pull: { recipes: recipe._id } },
 				{ new: true, runValidators: true }
 			);
