@@ -19,7 +19,7 @@ const getRecipes = async (req, res) => {
 	let result;
 	if (history) {
 		queryObject.completed = { $ne: null };
-		result = Recipe.find(queryObject).sort({ completed: -1 });
+		result = Recipe.find(queryObject).sort({ completed: 1 });
 	} else if (favorite) {
 		queryObject.favorite = true;
 		result = Recipe.find(queryObject);
