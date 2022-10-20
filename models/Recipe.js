@@ -26,6 +26,8 @@ const RecipeSchema = new mongoose.Schema(
 		],
 		picture: {
 			type: String,
+			default:
+				'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/high-protein-dinners-slow-cooker-meatballs-image-5a04d02.jpg?quality=90&webp=true&resize=500,454',
 		},
 		imageId: {
 			type: String,
