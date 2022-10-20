@@ -10,7 +10,7 @@ const register = async (req, res) => {
 		name: 'Breakfast',
 		createBy: user._id,
 		picture:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/baked-eggs-and-zoodles-bundles1-1661458984.jpeg?crop=0.857xw:1.00xh;0.0722xw,0&resize=640:*',
+			'https://img.delicious.com.au/zwzzSNao/del/2018/08/chilli-labneh-eggs-87071-2.jpg',
 	});
 	await Category.create({
 		name: 'Lunch',
@@ -34,13 +34,13 @@ const register = async (req, res) => {
 		name: 'Brunch',
 		createBy: user._id,
 		picture:
-			'https://www.halfbakedharvest.com/wp-content/uploads/2019/04/Ultimate-Spring-Brunch-Board-1-500x500.jpg',
+			'https://static01.nyt.com/images/2018/07/25/dining/25australian-6/25australian-6-jumbo.jpg',
 	});
 	await Category.create({
 		name: 'Dessert',
 		createBy: user._id,
 		picture:
-			'https://myfoodbook.com.au/sites/default/files/collections_image/custard_trifle_summer_dessert.jpeg',
+			'https://static01.nyt.com/images/2022/02/12/dining/JT-Chocolate-Chip-Cookies/JT-Chocolate-Chip-Cookies-blog480.jpg',
 	});
 	res.status(StatusCodes.CREATED).json({
 		user: { name: user.name },
