@@ -45,6 +45,7 @@ const createRecipe = async (req, res) => {
 	const { tags } = req.body;
 	req.body.tags = undefined;
 	req.body.createBy = req.user.userId;
+	if (req.body.picture === '') req.body.picture = undefined;
 	const recipe = await Recipe.create(req.body);
 	if (tags) {
 		for (const tag of tags) {
